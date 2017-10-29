@@ -11,6 +11,11 @@ int main() {
     auto *screen = new Screen(Pixel(60, 20), 5);
     auto *snake = new Snake(screen);
     snake->position = screen->getSize() / 2;
+
+    for (int i = 0; i < 5; i++) {
+        snake->grow();
+    }
+
     screen->mainLoop(50);
     return 0;
 }

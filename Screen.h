@@ -40,8 +40,8 @@ public:
     // whether key was pressed, queries the private array
     bool key(char key);
 
-    // filters the objects list for object->position == position
-    std::vector<Object *> objectsWithPosition(Pixel position);
+    // check each object for collision with any part of shape
+    std::vector<Object *> objectsAtPixel(Pixel pixel);
 };
 
 

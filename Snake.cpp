@@ -6,8 +6,10 @@
 #include "Snake.h"
 
 Snake::Snake(Screen *screen) : Object(screen) {
-    velocity = Pixel(1, 0);
     character = 'S';
+
+    velocity = Pixel(1, 0);
+    trailSize = 0;
 }
 
 Snake::~Snake() = default;
@@ -23,12 +25,36 @@ void Snake::update() {
         velocity = {1, 0};
     }
 
+    prevPositions.insert(prevPositions.begin(), position);
+    while (prevPositions.size() > trailSize) {
+        prevPositions.pop_back();
+    }
+
     position += velocity;
 
-    // neither coordinate (x or y) can be below 0 or above screen width/height
+    // snake's head can't collide with body
+    for (const Pixel &prevPosition : prevPositions) {
+        if (position == prevPosition) {
+            die();
+        }
+    }
+
+    // neither coordinate (x or y) of snake's head can be below 0 or above screen width/height
     if (!(position >= Pixel::zero && position < getScreen()->getSize())) {
         die();
     }
+}
+
+Shape Snake::shape() {
+    Shape shape = Object::shape();
+    for (const Pixel &prevPosition : prevPositions) {
+        shape.push_back({prevPosition - position, '*'});
+    }
+    return shape;
+}
+
+void Snake::grow() {
+    trailSize++;
 }
 
 void Snake::die() {

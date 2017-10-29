@@ -21,6 +21,10 @@ Screen *Object::getScreen() {
     return screen;
 }
 
+Shape Object::shape() {
+    return {{Pixel::zero, character}};
+}
+
 bool Object::key(char key) {
     return screen->key(key);
 }

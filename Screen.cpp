@@ -57,8 +57,12 @@ void Screen::displayPixel(Pixel pixel) {
     // objects that are later in the list are "on top"
     
     char character = ' ';
-    for (Object *object : objectsWithPosition(pixel)) {
-        character = object->character;
+    for (Object *object : objectsAtPixel(pixel)) {
+        for (auto pair : object->shape()) {
+            if (object->position + pair.first == pixel) {
+                character = pair.second;
+            }
+        }
     }
     
     std::cout << character;
@@ -102,14 +106,17 @@ bool Screen::key(char key) {
     return keys[key];
 }
 
-std::vector<Object *> Screen::objectsWithPosition(Pixel position) {
-    std::vector<Object *> objectsWithPosition;
+std::vector<Object *> Screen::objectsAtPixel(Pixel pixel) {
+    std::vector<Object *> objectsAtPixel;
     
     for (Object *object : objects) {
-        if (object->position == position) {
-            objectsWithPosition.push_back(object);
+        for (auto pair : object->shape()) {
+            if (object->position + pair.first == pixel) {
+                objectsAtPixel.push_back(object);
+                break;
+            }
         }
     }
     
-    return objectsWithPosition;
+    return objectsAtPixel;
 }
