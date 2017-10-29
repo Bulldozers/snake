@@ -1,9 +1,16 @@
 #include "Screen.h"
+#include "Snake.h"
 
-// g++ -std=c++11 -o snake main.cpp Screen.cpp Pixel.cpp
+/* Create a screen with a snake in the center, moving to the right.
+ * When the snake hits the edge of the screen, it destroys itself and the mainloop continues for a few more frames.
+ *
+ * I'm using JetBrains' CLion IDE to build and run this project. It does a whole lot of cmake sorcery behind the scenes,
+ * but if you download the IDE and create a project from these source files, I think it should work. */
 
 int main() {
-    Screen testScreen = Screen(Pixel(60, 20), 5);
-    testScreen.mainLoop(5);
+    auto *screen = new Screen(Pixel(60, 20), 5);
+    auto *snake = new Snake(screen);
+    snake->position = screen->getSize() / 2;
+    screen->mainLoop(50);
     return 0;
 }

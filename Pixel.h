@@ -24,12 +24,21 @@ struct Pixel {
 
     Pixel &operator*=(const int &scalar);
     Pixel &operator/=(const int &scalar);
+    
+    static Pixel zero;
+    static Pixel one;
 };
+
+// all of the following are basically the item-wise versions of the corresponding int operators
 
 bool operator==(const Pixel &lhs, const Pixel &rhs);
 bool operator!=(const Pixel &lhs, const Pixel &rhs);
 
-// item-wise operators
+bool operator>(const Pixel &lhs, const Pixel &rhs);
+bool operator<(const Pixel &lhs, const Pixel &rhs);
+bool operator>=(const Pixel &lhs, const Pixel &rhs);
+bool operator<=(const Pixel &lhs, const Pixel &rhs);
+
 Pixel operator+(const Pixel &lhs, const Pixel &rhs);
 Pixel operator-(const Pixel &lhs, const Pixel &rhs);
 Pixel operator*(const Pixel &lhs, const Pixel &rhs);

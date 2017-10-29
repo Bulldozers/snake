@@ -12,12 +12,16 @@ Screen::Screen(Pixel size, int fps) {
     this->fps = fps;
 }
 
+Pixel Screen::getSize() {
+    return size;
+}
+
 void Screen::display() {
 
     // pad with newlines
 
     for (int i = 0; i < 20; i++) {
-        std::cout << '\n';
+        std::cout << std::endl;
     }
 
     // top border
@@ -28,8 +32,14 @@ void Screen::display() {
     }
     std::cout << "╗" << std::endl;
 
+    // rows of screen
+    
     for (int row = 0; row < size.y; row++) {
-        displayRow(row);
+        std::cout << "║";
+        for (int col = 0; col < size.x; col++) {
+            displayPixel(Pixel(col, row));
+        }
+        std::cout << "║" << std::endl;
     }
 
     // bottom border
@@ -41,16 +51,17 @@ void Screen::display() {
     std::cout << "╝" << std::endl;
 }
 
-void Screen::displayRow(int row) {
-    std::cout << "║";
-    for (int col = 0; col < size.x; col++) {
-        displayPixel(Pixel(col, row));
-    }
-    std::cout << "║" << std::endl;
-}
-
 void Screen::displayPixel(Pixel pixel) {
-    std::cout << ' '; // placeholder
+    
+    // check for objects in the list at this position.
+    // objects that are later in the list are "on top"
+    
+    char character = ' ';
+    for (Object *object : objectsWithPosition(pixel)) {
+        character = object->character;
+    }
+    
+    std::cout << character;
 }
 
 void Screen::mainLoop() {
@@ -59,7 +70,46 @@ void Screen::mainLoop() {
 
 void Screen::mainLoop(int numFrames) {
     while (numFrames-- != 0) {
+        for (Object *object : objects) {
+            object->update();
+        }
         display();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 / fps));
     }
+}
+
+std::vector<Object *> Screen::getObjects() {
+    return objects;
+}
+
+Object *Screen::addObject(Object *object) {
+    objects.push_back(object);
+    return object;
+}
+
+void Screen::removeObject(Object *object) {
+
+    // fancy
+    for (auto i = objects.begin(); i < objects.end(); i++) {
+        if (*i == object) {
+            objects.erase(i);
+            return;
+        }
+    }
+}
+
+bool Screen::key(char key) {
+    return keys[key];
+}
+
+std::vector<Object *> Screen::objectsWithPosition(Pixel position) {
+    std::vector<Object *> objectsWithPosition;
+    
+    for (Object *object : objects) {
+        if (object->position == position) {
+            objectsWithPosition.push_back(object);
+        }
+    }
+    
+    return objectsWithPosition;
 }

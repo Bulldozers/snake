@@ -19,8 +19,16 @@ Pixel &Pixel::operator/=(const Pixel &rhs) { x /= rhs.x; y /= rhs.y; return *thi
 Pixel &Pixel::operator*=(const int &scalar) { x *= scalar; y *= scalar; return *this; }
 Pixel &Pixel::operator/=(const int &scalar) { x /= scalar; y /= scalar; return *this; }
 
+Pixel Pixel::zero = Pixel(0);
+Pixel Pixel::one = Pixel(1);
+
 bool operator==(const Pixel &lhs, const Pixel &rhs) { return (lhs.x == rhs.x && lhs.y == rhs.y); }
 bool operator!=(const Pixel &lhs, const Pixel &rhs) { return !(lhs == rhs); }
+
+bool operator>(const Pixel &lhs, const Pixel &rhs) { return (lhs.x > rhs.x && lhs.y > rhs.y); }
+bool operator<(const Pixel &lhs, const Pixel &rhs) { return (lhs.x < rhs.x && lhs.y < rhs.y); }
+bool operator>=(const Pixel &lhs, const Pixel &rhs) { return (lhs.x >= rhs.x && lhs.y >= rhs.y); }
+bool operator<=(const Pixel &lhs, const Pixel &rhs) { return (lhs.x <= rhs.x && lhs.y <= rhs.y); }
 
 Pixel operator+(const Pixel &lhs, const Pixel &rhs) { return Pixel(lhs) += rhs; }
 Pixel operator-(const Pixel &lhs, const Pixel &rhs) { return Pixel(lhs) -= rhs; }
