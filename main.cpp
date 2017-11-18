@@ -15,6 +15,8 @@ int main() {
 
     auto hud = new HUD(screen, 1);
     auto label = new Label(screen, "Score: 0");
+    label->position = {screen->getSize().x / 2, 0};
+    label->alignment = CENTER;
 
     auto snake = new Snake(screen);
     snake->position = screen->getSize() / 2;

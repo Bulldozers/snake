@@ -5,6 +5,7 @@
 #ifndef SNAKE_LABEL_H
 #define SNAKE_LABEL_H
 
+#include "Alignment.h"
 #include "Screen.h"
 #include <string>
 
@@ -13,6 +14,8 @@ private:
     std::string name;
 
 public:
+    Alignment alignment;
+
     Label(Screen *screen, std::string n);
 
     Shape shape() override;
