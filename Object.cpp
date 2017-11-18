@@ -21,6 +21,8 @@ Screen *Object::getScreen() {
     return screen;
 }
 
+void Object::update() {}
+
 Shape Object::shape() {
     return {{Pixel::zero, character}};
 }

@@ -31,7 +31,7 @@ public:
     Screen *getScreen();
 
     // called every frame
-    virtual void update() = 0;
+    virtual void update();
 
     /* the positions of the pixels that the object occupies, relative to the object's position, and the characters
      * displayed at each. by default, this returns the single pair {Pixel::zero, character} */
