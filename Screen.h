@@ -29,6 +29,8 @@ public:
     // starting the main loop - only goes for a limited number of frames
     void mainLoop(int numFrames);
 
+    void tick();
+
     // call the above function with argument -1, which essentially makes it go infinitely (about 25 years actually)
     void mainLoop();
 

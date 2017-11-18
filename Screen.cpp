@@ -72,13 +72,17 @@ void Screen::mainLoop() {
     mainLoop(-1);
 }
 
+void Screen::tick() {
+    for (Object *object : objects) {
+        object->update();
+    }
+    display();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000 / fps));
+}
+
 void Screen::mainLoop(int numFrames) {
     while (numFrames-- != 0) {
-        for (Object *object : objects) {
-            object->update();
-        }
-        display();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / fps));
+        tick();
     }
 }
 
