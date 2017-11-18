@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include "Snake.h"
+#include "Food.h"
 
 Snake::Snake(Screen *screen) : Object(screen) {
     character = 'S';
@@ -31,6 +32,16 @@ void Snake::update() {
     }
 
     position += velocity;
+
+    // check for collisions with food - look at all objects at the snake's head
+    for (Object *object : getScreen()->objectsAtPixel(position)) {
+
+        // check if object is food
+        if (Food *food = dynamic_cast<Food *>(object)) {
+            grow();
+            food->goToRandomPosition();
+        }
+    }
 
     // snake's head can't collide with body
     for (const Pixel &prevPosition : prevPositions) {

@@ -22,7 +22,7 @@ public:
     void update() override;
 
     // position of head plus prevPositions
-    Shape shape();
+    Shape shape() override;
 
     void grow();
     void die();

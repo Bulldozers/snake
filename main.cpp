@@ -1,6 +1,7 @@
 #include "Screen.h"
 #include "Snake.h"
 #include "Label.h"
+#include "Food.h"
 
 /* Create a screen with a snake in the center, moving to the right.
  * When the snake hits the edge of the screen, it destroys itself and the mainloop continues for a few more frames.
@@ -9,7 +10,7 @@
  * but if you download the IDE and create a project from these source files, I think it should work. */
 
 int main() {
-    auto *screen = new Screen(Pixel(60, 20), 10);
+    auto *screen = new Screen(Pixel(78, 22), 10);
     auto *snake = new Snake(screen);
     snake->position = screen->getSize() / 2;
 
@@ -17,7 +18,7 @@ int main() {
         snake->grow();
     }
 
-    auto *label = new Label(screen, "Test");
+    auto *food = new Food(screen);
 
     screen->mainLoop(50);
     return 0;

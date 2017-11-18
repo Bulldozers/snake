@@ -15,7 +15,7 @@ private:
 public:
     Label(Screen *screen, std::string n);
 
-    Shape shape();
+    Shape shape() override;
 
     std::string getName();
     void setName(std::string n);
