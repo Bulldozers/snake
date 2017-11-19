@@ -20,6 +20,7 @@ void Snake::initialize() {
     position = getScreen()->getSize() / 2;
     velocity = Pixel(1, 0);
     trailSize = 1;
+    prevPositions.clear();
 }
 
 void Snake::update() {
@@ -49,6 +50,11 @@ void Snake::update() {
                 grow();
                 food->goToRandomPosition();
             }
+
+            // if object is the HUD, then we have a collision
+            if (dynamic_cast<HUD *>(object)) {
+                die();
+            }
         }
 
         // snake's head can't collide with body
@@ -62,6 +68,7 @@ void Snake::update() {
         if (!(position >= Pixel::zero && position < getScreen()->getSize())) {
             die();
         }
+
     } else {
         if (key('R')) {
             restart();

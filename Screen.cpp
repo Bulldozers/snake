@@ -11,6 +11,10 @@
 Screen::Screen(Pixel size, int fps) {
     this->size = size;
     this->fps = fps;
+
+    for (int c = 0; c < 256; c++) {
+        toggleState[c] = (GetKeyState(c) & 0x0001) != 0;
+    }
 }
 
 Screen::~Screen() = default;
@@ -80,7 +84,15 @@ void Screen::mainLoop() {
 
 void Screen::tick() {
     for (int c = 0; c < 256; c++) {
-        keys[c] = (GetKeyState(c) & 0x8000) != 0;
+        keys[c] = false;
+
+        // if toggle state has changed, then key was pressed since the last frame
+
+        bool newToggleState = (GetKeyState(c) & 0x0001) != 0;
+        if (newToggleState != toggleState[c]) {
+            toggleState[c] = newToggleState;
+            keys[c] = true;
+        }
     }
 
     for (int i = 0; i < objects.size(); i++) {

@@ -14,6 +14,9 @@ private:
     Pixel size;
     int fps;
 
+    // previous toggle state of all keys
+    bool toggleState[256];
+
     // state of all keys - keys['A'] is true if A was pressed in the last frame, false otherwise
     bool keys[256];
 
