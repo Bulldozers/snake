@@ -8,7 +8,6 @@
 
 Food::Food(Screen *screen): Object(screen) {
     character = 'O';
-    goToRandomPosition();
 }
 
 void Food::goToRandomPosition() {

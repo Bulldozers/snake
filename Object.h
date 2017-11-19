@@ -26,7 +26,7 @@ public:
     char character;
 
     explicit Object(Screen *screen);
-    ~Object();
+    virtual ~Object();
 
     Screen *getScreen();
 

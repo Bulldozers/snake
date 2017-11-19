@@ -13,11 +13,14 @@ private:
     Pixel velocity;
     int trailSize; // size of prevPositions
     std::vector<Pixel> prevPositions; // prevPositions[n] = position of snake's head (n+1) frames ago
+    bool isAlive;
 
 public:
     explicit Snake(Screen *screen);
 
     ~Snake();
+
+    void initialize();
 
     void update() override;
 
@@ -26,6 +29,7 @@ public:
 
     void grow();
     void die();
+    void restart();
 };
 
 #endif // SNAKE_SNAKE_H

@@ -12,6 +12,8 @@ Screen::Screen(Pixel size, int fps) {
     this->fps = fps;
 }
 
+Screen::~Screen() = default;
+
 Pixel Screen::getSize() {
     return size;
 }

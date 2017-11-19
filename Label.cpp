@@ -11,6 +11,8 @@ Label::Label(Screen *screen, std::string n) : Object(screen) {
     this->name = n;
 }
 
+Label::~Label() = default;
+
 Shape Label::shape() {
     int xOffset = alignment == LEFT ? 0 :
                   alignment == CENTER ? (-name.size() / 2) :

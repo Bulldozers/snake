@@ -23,6 +23,7 @@ private:
     void displayPixel(Pixel pixel);
 public:
     Screen(Pixel size, int fps);
+    virtual ~Screen();
     
     Pixel getSize();
 

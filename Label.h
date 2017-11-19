@@ -17,13 +17,12 @@ public:
     Alignment alignment;
 
     Label(Screen *screen, std::string n);
+    virtual ~Label();
 
     Shape shape() override;
 
     std::string getName();
     void setName(std::string n);
-
-    ~Label();
 
 };
 
