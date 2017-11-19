@@ -20,7 +20,7 @@ private:
     std::vector<Object *> objects;
 
     void display();
-    void displayPixel(Pixel pixel);
+    char charAtPixel(Pixel pixel);
 public:
     Screen(Pixel size, int fps);
     virtual ~Screen();

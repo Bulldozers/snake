@@ -1,3 +1,4 @@
+#include <iostream>
 #include "SnakeScreen.h"
 
 /* Create a screen with a snake in the center, moving to the right.
@@ -7,7 +8,7 @@
  * but if you download the IDE and create a project from these source files, I think it should work. */
 
 int main() {
-    auto screen = new SnakeScreen(Pixel(78, 21), 30);
+    auto screen = new SnakeScreen(Pixel(78, 21), 15);
     screen->mainLoop();
     return 0;
 }

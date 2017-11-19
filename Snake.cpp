@@ -3,6 +3,7 @@
 //
 
 #include <cstdlib>
+#include <w32api/rpc.h>
 #include "Snake.h"
 #include "Food.h"
 #include "SnakeScreen.h"
@@ -28,13 +29,13 @@ void Snake::update() {
     }
 
     if (isAlive) {
-        if (key('w')) {
+        if (key(VK_UP)) {
             velocity = {0, -1};
-        } else if (key('s')) {
+        } else if (key(VK_DOWN)) {
             velocity = {0, 1};
-        } else if (key('a')) {
+        } else if (key(VK_LEFT)) {
             velocity = {-1, 0};
-        } else if (key('d')) {
+        } else if (key(VK_RIGHT)) {
             velocity = {1, 0};
         }
 
@@ -62,7 +63,7 @@ void Snake::update() {
             die();
         }
     } else {
-        if (key('r')) {
+        if (key('R')) {
             restart();
         }
     }
