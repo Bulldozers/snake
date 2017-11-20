@@ -13,11 +13,16 @@
 
 class Snake; // forward declare
 
+/* subclass of Screen with functionality specific to the snake game */
+
 class SnakeScreen: public Screen {
 private:
     int score;
     int highscore = 0;
 public:
+
+    // special objects - these are also stored in the objects array
+
     HUD *hud;
     Label *scoreLabel;
     Label *highscoreLabel;
@@ -32,7 +37,7 @@ public:
     void initialize();
 
     int getScore();
-    void setScore(int score);
+    void setScore(int score); // also updates labels
 
     void gameOver();
     void restart();

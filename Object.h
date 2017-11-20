@@ -1,7 +1,3 @@
-//
-// Created by Owen Maitzen on 2017-10-28.
-//
-
 #ifndef SNAKE_OBJECT_H
 #define SNAKE_OBJECT_H
 

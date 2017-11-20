@@ -1,7 +1,3 @@
-//
-// Created by Owen Maitzen on 2017-11-19.
-//
-
 #include "SnakeScreen.h"
 #include "Snake.h"
 
@@ -38,10 +34,12 @@ int SnakeScreen::getScore() {
 void SnakeScreen::setScore(int score) {
     this->score = score;
 
+    // update highscore
     if (score > highscore) {
         highscore = score;
     }
 
+    // update labels
     scoreLabel->getText("SCORE: " + std::to_string(score));
     highscoreLabel->getText("HIGHSCORE: " + std::to_string(highscore));
 }

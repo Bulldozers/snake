@@ -1,7 +1,3 @@
-//
-// Created by Owen on 2017-11-18.
-//
-
 #include "HUD.h"
 #include "Screen.h"
 

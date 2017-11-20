@@ -1,7 +1,3 @@
-//
-// Created by Owen Maitzen on 2017-10-28.
-//
-
 #ifndef SNAKE_SNAKE_H
 #define SNAKE_SNAKE_H
 
@@ -10,7 +6,7 @@
 
 class Snake : public Object {
 private:
-    Pixel velocity;
+    Pixel velocity; // added to snake's position every frame
     int trailSize; // size of prevPositions
     std::vector<Pixel> prevPositions; // prevPositions[n] = position of snake's head (n+1) frames ago
     bool isAlive;
@@ -18,7 +14,7 @@ private:
 public:
     explicit Snake(Screen *screen);
 
-    ~Snake();
+    virtual ~Snake();
 
     void initialize();
 
@@ -27,6 +23,7 @@ public:
     // position of head plus prevPositions
     Shape shape() override;
 
+    // self-explanatory
     void grow();
     void die();
     void restart();

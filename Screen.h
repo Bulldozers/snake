@@ -1,7 +1,3 @@
-//
-// Created by Owen Maitzen on 2017-10-28.
-//
-
 #ifndef SNAKE_SCREEN_H
 #define SNAKE_SCREEN_H
 

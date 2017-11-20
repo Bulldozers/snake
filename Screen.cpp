@@ -1,13 +1,23 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
-#include <Windows.h>
 #include "Screen.h"
+
+// for Windows keyboard inputs - program doesn't detect key inputs on other platforms
+
+#ifdef _WIN32
+    #include <Windows.h>
+#else
+    short GetKeyState(char k) {
+        return 0;
+    }
+#endif // _WIN32
 
 Screen::Screen(Pixel size, int fps) {
     this->size = size;
     this->fps = fps;
 
+    // store initial toggle state of keys
     for (int c = 0; c < 256; c++) {
         toggleState[c] = (GetKeyState(c) & 0x0001) != 0;
     }

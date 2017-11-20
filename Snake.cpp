@@ -1,9 +1,4 @@
-//
-// Created by Owen Maitzen on 2017-10-28.
-//
-
 #include <cstdlib>
-#include <w32api/rpc.h>
 #include "Snake.h"
 #include "Food.h"
 #include "SnakeScreen.h"
@@ -30,13 +25,13 @@ void Snake::update() {
     }
 
     if (isAlive) {
-        if (key(VK_UP)) {
+        if (key(0x26)) { // UP
             velocity = {0, -1};
-        } else if (key(VK_DOWN)) {
+        } else if (key(0x28)) { // DOWN
             velocity = {0, 1};
-        } else if (key(VK_LEFT)) {
+        } else if (key(0x25)) { // LEFT
             velocity = {-1, 0};
-        } else if (key(VK_RIGHT)) {
+        } else if (key(0x27)) { // RIGHT
             velocity = {1, 0};
         }
 
@@ -83,6 +78,8 @@ Shape Snake::shape() {
     }
     return shape;
 }
+
+// snake functions with callbacks to the screen
 
 void Snake::grow() {
     trailSize++;
