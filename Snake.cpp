@@ -3,6 +3,7 @@
 //
 
 #include <cstdlib>
+#include <w32api/rpc.h>
 #include "Snake.h"
 #include "Food.h"
 #include "SnakeScreen.h"
@@ -19,6 +20,7 @@ void Snake::initialize() {
     position = getScreen()->getSize() / 2;
     velocity = Pixel(1, 0);
     trailSize = 1;
+    prevPositions.clear();
 }
 
 void Snake::update() {
@@ -28,13 +30,13 @@ void Snake::update() {
     }
 
     if (isAlive) {
-        if (key('w')) {
+        if (key(VK_UP)) {
             velocity = {0, -1};
-        } else if (key('s')) {
+        } else if (key(VK_DOWN)) {
             velocity = {0, 1};
-        } else if (key('a')) {
+        } else if (key(VK_LEFT)) {
             velocity = {-1, 0};
-        } else if (key('d')) {
+        } else if (key(VK_RIGHT)) {
             velocity = {1, 0};
         }
 
@@ -47,6 +49,11 @@ void Snake::update() {
             if (Food *food = dynamic_cast<Food *>(object)) {
                 grow();
                 food->goToRandomPosition();
+            }
+
+            // if object is the HUD, then we have a collision
+            if (dynamic_cast<HUD *>(object)) {
+                die();
             }
         }
 
@@ -61,8 +68,9 @@ void Snake::update() {
         if (!(position >= Pixel::zero && position < getScreen()->getSize())) {
             die();
         }
+
     } else {
-        if (key('r')) {
+        if (key('R')) {
             restart();
         }
     }

@@ -14,13 +14,16 @@ private:
     Pixel size;
     int fps;
 
+    // previous toggle state of all keys
+    bool toggleState[256];
+
     // state of all keys - keys['A'] is true if A was pressed in the last frame, false otherwise
     bool keys[256];
 
     std::vector<Object *> objects;
 
     void display();
-    void displayPixel(Pixel pixel);
+    char charAtPixel(Pixel pixel);
 public:
     Screen(Pixel size, int fps);
     virtual ~Screen();

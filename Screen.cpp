@@ -1,11 +1,16 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <Windows.h>
 #include "Screen.h"
 
 Screen::Screen(Pixel size, int fps) {
     this->size = size;
     this->fps = fps;
+
+    for (int c = 0; c < 256; c++) {
+        toggleState[c] = (GetKeyState(c) & 0x0001) != 0;
+    }
 }
 
 Screen::~Screen() = default;
@@ -15,42 +20,45 @@ Pixel Screen::getSize() {
 }
 
 void Screen::display() {
+    std::string output = "";
 
     // pad with newlines
 
     for (int i = 0; i < 20; i++) {
-        std::cout << std::endl;
+        output += '\n';
     }
 
     // top border
 
-    std::cout << "╔";
+    output += "╔";
     for (int col = 0; col < size.x; col++) {
-        std::cout << "═";
+        output += "═";
     }
-    std::cout << "╗" << std::endl;
+    output += "╗\n";
 
     // rows of screen
-    
+
     for (int row = 0; row < size.y; row++) {
-        std::cout << "║";
+        output += "║";
         for (int col = 0; col < size.x; col++) {
-            displayPixel(Pixel(col, row));
+            output += charAtPixel(Pixel(col, row));
         }
-        std::cout << "║" << std::endl;
+        output += "║\n";
     }
 
     // bottom border
 
-    std::cout << "╚";
+    output += "╚";
     for (int col = 0; col < size.x; col++) {
-        std::cout << "═";
+        output += "═";
     }
-    std::cout << "╝" << std::endl;
+    output += "╝\n";
+
+    std::cout << output;
 }
 
-void Screen::displayPixel(Pixel pixel) {
-    
+char Screen::charAtPixel(Pixel pixel) {
+
     // check for objects in the list at this position.
     // objects that are later in the list are "on top"
     
@@ -63,7 +71,7 @@ void Screen::displayPixel(Pixel pixel) {
         }
     }
     
-    std::cout << character;
+    return character;
 }
 
 void Screen::mainLoop() {
@@ -71,8 +79,20 @@ void Screen::mainLoop() {
 }
 
 void Screen::tick() {
-    for (Object *object : objects) {
-        object->update();
+    for (int c = 0; c < 256; c++) {
+        keys[c] = false;
+
+        // if toggle state has changed, then key was pressed since the last frame
+
+        bool newToggleState = (GetKeyState(c) & 0x0001) != 0;
+        if (newToggleState != toggleState[c]) {
+            toggleState[c] = newToggleState;
+            keys[c] = true;
+        }
+    }
+
+    for (int i = 0; i < objects.size(); i++) {
+        objects[i]->update();
     }
     display();
     std::this_thread::sleep_for(std::chrono::milliseconds(1000 / fps));
