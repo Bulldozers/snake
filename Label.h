@@ -1,28 +1,26 @@
-//
-// Created by Julian Strom on 2017-11-16.
-//
-
 #ifndef SNAKE_LABEL_H
 #define SNAKE_LABEL_H
 
-#include "Alignment.h"
 #include "Screen.h"
 #include <string>
 
+// horizontal alignment of text in a label
+enum Alignment { LEFT, CENTER, RIGHT };
+
 class Label: public Object {
 private:
-    std::string name;
+    std::string text; // text that the label displays
 
 public:
     Alignment alignment;
 
-    Label(Screen *screen, std::string n);
+    Label(Screen *screen, std::string text);
     virtual ~Label();
 
     Shape shape() override;
 
-    std::string getName();
-    void setName(std::string n);
+    std::string getText();
+    void getText(std::string text);
 
 };
 

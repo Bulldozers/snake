@@ -42,8 +42,8 @@ void SnakeScreen::setScore(int score) {
         highscore = score;
     }
 
-    scoreLabel->setName("SCORE: " + std::to_string(score));
-    highscoreLabel->setName("HIGHSCORE: " + std::to_string(highscore));
+    scoreLabel->getText("SCORE: " + std::to_string(score));
+    highscoreLabel->getText("HIGHSCORE: " + std::to_string(highscore));
 }
 
 void SnakeScreen::gameOver() {

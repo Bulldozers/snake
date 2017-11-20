@@ -16,7 +16,7 @@ class Snake; // forward declare
 class SnakeScreen: public Screen {
 private:
     int score;
-    int highscore;
+    int highscore = 0;
 public:
     HUD *hud;
     Label *scoreLabel;

@@ -1,7 +1,3 @@
-//
-// Created by Owen Maitzen on 2017-11-18.
-//
-
 #include <cstdlib>
 #include "Food.h"
 #include "Screen.h"

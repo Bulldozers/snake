@@ -37,6 +37,7 @@ public:
      * displayed at each. by default, this returns the single pair {Pixel::zero, character} */
     virtual Shape shape();
 
+    // whether a key has been pressed since the last frame. for convenience, just calls the screen function
     bool key(char key);
 
 };

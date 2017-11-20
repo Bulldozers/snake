@@ -1,7 +1,3 @@
-//
-// Created by Owen Maitzen on 2017-10-28.
-//
-
 #include <chrono>
 #include <iostream>
 #include <thread>

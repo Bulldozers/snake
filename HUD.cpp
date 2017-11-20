@@ -10,6 +10,8 @@ HUD::HUD(Screen *screen, int positionY): Object(screen) {
     character = '=';
 }
 
+// horizontal border the width of the screen
+
 Shape HUD::shape() {
     Shape shape = Shape();
     for (int x = 0; x < getScreen()->getSize().x; x++) {

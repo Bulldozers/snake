@@ -1,7 +1,3 @@
-//
-// Created by Owen Maitzen on 2017-10-28.
-//
-
 #include "Pixel.h"
 
 Pixel::Pixel(): x(0), y(0) {}
