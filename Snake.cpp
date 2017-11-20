@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 #include "Snake.h"
 #include "Food.h"
 #include "SnakeScreen.h"
@@ -25,14 +26,17 @@ void Snake::update() {
     }
 
     if (isAlive) {
-        if (key(0x26)) { // UP
-            velocity = {0, -1};
-        } else if (key(0x28)) { // DOWN
-            velocity = {0, 1};
-        } else if (key(0x25)) { // LEFT
-            velocity = {-1, 0};
-        } else if (key(0x27)) { // RIGHT
-            velocity = {1, 0};
+        bool AI_ON = true;
+        if (!AI_ON) {
+            if (key(0x26)) { // UP
+                velocity = {0, -1};
+            } else if (key(0x28)) { // DOWN
+                velocity = {0, 1};
+            } else if (key(0x25)) { // LEFT
+                velocity = {-1, 0};
+            } else if (key(0x27)) { // RIGHT
+                velocity = {1, 0};
+            }
         }
 
         position += velocity;
@@ -49,6 +53,46 @@ void Snake::update() {
             // if object is the HUD, then we have a collision
             if (dynamic_cast<HUD *>(object)) {
                 die();
+            }
+        }
+
+        if (AI_ON) {
+            for (Object *object : getScreen()->getObjects()) {
+                if (Food *food = dynamic_cast<Food *>(object)) {
+
+                    bool shouldTurnLeft = false, shouldTurnRight = false;
+
+                    Pixel relativeFoodPosition;
+                    if (velocity.x > 0) {
+                        relativeFoodPosition = food->position - position;
+                    } else if (velocity.x < 0) {
+                        relativeFoodPosition = position - food->position;
+                    } else if (velocity.y > 0) {
+                        relativeFoodPosition = {food->position.y - position.y, position.x - food->position.x};
+                    } else if (velocity.y < 0) {
+                        relativeFoodPosition = {position.y - food->position.y, food->position.x - position.x};
+                    }
+
+                    if (relativeFoodPosition.x <= 0) {
+                        if (relativeFoodPosition.y < 0) {
+                            shouldTurnLeft = true;
+                        } else {
+                            shouldTurnRight = true;
+                        }
+                    }
+
+                    if (shouldTurnLeft) {
+                        if (velocity.x > 0) { velocity = {0, -1}; }
+                        else if (velocity.x < 0) { velocity = {0, 1}; }
+                        else if (velocity.y > 0) { velocity = {1, 0}; }
+                        else if (velocity.y < 0) { velocity = {-1, 0}; }
+                    } else if (shouldTurnRight) {
+                        if (velocity.x > 0) { velocity = {0, 1}; }
+                        else if (velocity.x < 0) { velocity = {0, -1}; }
+                        else if (velocity.y > 0) { velocity = {-1, 0}; }
+                        else if (velocity.y < 0) { velocity = {1, 0}; }
+                    }
+                }
             }
         }
 
