@@ -11,8 +11,8 @@ void Food::goToRandomPosition() {
     // figure out positions of all empty pixels
 
     std::vector<Pixel> possiblePositions;
-    for (int x = 0; x < getScreen()->getSize().x; x++) {
-        for (int y = 0; y < getScreen()->getSize().y; y++) {
+    for (int x = 1; x < getScreen()->getSize().x - 1; x++) {
+        for (int y = 3; y < getScreen()->getSize().y - 1; y++) {
             Pixel pixel = Pixel(x,y);
             if (getScreen()->objectsAtPixel(pixel).empty()) {
                 possiblePositions.push_back(pixel);
